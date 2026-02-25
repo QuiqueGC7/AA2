@@ -19,33 +19,33 @@ const routes: RouteRecordRaw[] = [
   // CRUD de entidades
   {
     path: "/entity-a",
-    component: () => import("@/views/EntityA/List.vue"),
+    component: () => import("@/views/A/List.vue"),
     meta: { requiresAuth: true },
   },
   {
     path: "/entity-a/new",
-    component: () => import("@/views/EntityA/Form.vue"),
+    component: () => import("@/views/A/Form.vue"),
     meta: { requiresAuth: true },
   },
   {
     path: "/entity-a/:id",
-    component: () => import("@/views/EntityA/Form.vue"),
+    component: () => import("@/views/A/Form.vue"),
     meta: { requiresAuth: true },
   },
 
   {
     path: "/entity-b",
-    component: () => import("@/views/EntityB/List.vue"),
+    component: () => import("@/views/B/List.vue"),
     meta: { requiresAuth: true },
   },
   {
     path: "/entity-b/new",
-    component: () => import("@/views/EntityB/Form.vue"),
+    component: () => import("@/views/B/Form.vue"),
     meta: { requiresAuth: true },
   },
   {
     path: "/entity-b/:id",
-    component: () => import("@/views/EntityB/Form.vue"),
+    component: () => import("@/views/B/Form.vue"),
     meta: { requiresAuth: true },
   },
 ]
