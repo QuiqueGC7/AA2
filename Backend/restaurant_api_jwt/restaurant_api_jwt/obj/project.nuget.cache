@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TvppbM6sRzY=",
+  "dgSpecHash": "Ls379BfR+FI=",
   "success": true,
-  "projectFilePath": "c:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj",
+  "projectFilePath": "C:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\garci\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\garci\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

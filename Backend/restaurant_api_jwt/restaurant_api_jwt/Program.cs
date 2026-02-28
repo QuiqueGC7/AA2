@@ -32,6 +32,7 @@ builder.Services.AddScoped<IPlatoPrincipalService, PlatoPrincipalService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+builder.Services.AddCors();
 
 // Add services to the container.
 
@@ -76,6 +77,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(policy => policy
+    .WithOrigins("http://localhost:5173")
+    .AllowAnyHeader()
+    .AllowAnyMethod());
 
 app.UseAuthorization();
 

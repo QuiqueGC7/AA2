@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import type { Product } from "../types/product"
+import type { Product } from "../types/PlatoPrincipal"
 import * as service from "../services/products.service"
 import { useUIStore } from "./ui.store"
 

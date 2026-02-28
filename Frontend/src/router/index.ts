@@ -34,39 +34,20 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: "admin", requiresAuth: true }
   },
 
-  // CRUD PRODUCTOS
-  {
-    path: "/admin/products",
-    component: () => import("../views/Products/List.vue"),
-    meta: { layout: "admin", requiresAuth: true }
-  },
-  {
-    path: "/admin/products/new",
-    component: () => import("../views/Products/Form.vue"),
-    meta: { layout: "admin", requiresAuth: true }
-  },
-  {
-    path: "/admin/products/:id",
-    component: () => import("../views/Products/Form.vue"),
-    meta: { layout: "admin", requiresAuth: true }
-  },
+  // CRUD PLATOS PRINCIPALES
+  { path: "/admin/platos",      component: () => import("../views/Platos/List.vue"),  meta: { layout: "admin", requiresAuth: true } },
+  { path: "/admin/platos/new",  component: () => import("../views/Platos/Form.vue"),  meta: { layout: "admin", requiresAuth: true } },
+  { path: "/admin/platos/:id",  component: () => import("../views/Platos/Form.vue"),  meta: { layout: "admin", requiresAuth: true } },
 
-  // CRUD CATEGORÍAS
-  {
-    path: "/admin/categories",
-    component: () => import("../views/Categories/List.vue"),
-    meta: { layout: "admin", requiresAuth: true }
-  },
-  {
-    path: "/admin/categories/new",
-    component: () => import("../views/Categories/Form.vue"),
-    meta: { layout: "admin", requiresAuth: true }
-  },
-  {
-    path: "/admin/categories/:id",
-    component: () => import("../views/Categories/Form.vue"),
-    meta: { layout: "admin", requiresAuth: true }
-  }
+  // CRUD BEBIDAS
+  { path: "/admin/bebidas",     component: () => import("../views/Bebidas/List.vue"), meta: { layout: "admin", requiresAuth: true } },
+  { path: "/admin/bebidas/new", component: () => import("../views/Bebidas/Form.vue"), meta: { layout: "admin", requiresAuth: true } },
+  { path: "/admin/bebidas/:id", component: () => import("../views/Bebidas/Form.vue"), meta: { layout: "admin", requiresAuth: true } },
+
+  // CRUD POSTRES
+  { path: "/admin/postres",     component: () => import("../views/Postres/List.vue"), meta: { layout: "admin", requiresAuth: true } },
+  { path: "/admin/postres/new", component: () => import("../views/Postres/Form.vue"), meta: { layout: "admin", requiresAuth: true } },
+  { path: "/admin/postres/:id", component: () => import("../views/Postres/Form.vue"), meta: { layout: "admin", requiresAuth: true } },
 ]
 
 const router = createRouter({

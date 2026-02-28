@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj": {}
+    "C:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj": {}
   },
   "projects": {
-    "c:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj": {
+    "C:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj",
+        "projectUniqueName": "C:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj",
         "projectName": "restaurant_api",
-        "projectPath": "c:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj",
+        "projectPath": "C:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\restaurant_api.csproj",
         "packagesPath": "C:\\Users\\garci\\.nuget\\packages\\",
-        "outputPath": "c:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\obj\\",
+        "outputPath": "C:\\DAW\\AA2\\AA2\\Backend\\restaurant_api_jwt\\restaurant_api_jwt\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\garci\\AppData\\Roaming\\NuGet\\NuGet.Config"

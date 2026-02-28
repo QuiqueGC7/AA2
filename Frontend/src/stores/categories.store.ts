@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import type { Category } from "../types/category"
+import type { Category } from "../types/Bebida"
 import * as service from "../services/categories.service"
 
 export const useCategoriesStore = defineStore("categories", {
