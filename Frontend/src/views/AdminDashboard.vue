@@ -53,8 +53,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted } from "vue"
-import { useProductsStore } from "../stores/products.store"
-import { useCategoriesStore } from "../stores/categories.store"
+import { useProductsStore } from "../stores/PlatoPrincipal.store"
+import { useCategoriesStore } from "../stores/Bebida.store"
 
 const products = useProductsStore()
 const categories = useCategoriesStore()
