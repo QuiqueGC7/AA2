@@ -1,33 +1,47 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import { useForm, useField } from "vee-validate"
 import { useAuthStore } from "../stores/auth.store"
 import { useRouter } from "vue-router"
 
-const auth = useAuthStore()
-const router = useRouter()
-
-const email = ref("")
-const password = ref("")
+const auth     = useAuthStore()
+const router   = useRouter()
+const loading  = ref(false)
 const errorMsg = ref("")
-const loading = ref(false)
 
-const rules = {
-  required: (v: string) => !!v || "Campo obligatorio",
-  email: (v: string) => /.+@.+\..+/.test(v) || "Email no válido",
-}
+//Reglas VeeValidate
+const { handleSubmit, resetForm } = useForm({
+  validationSchema: {
+    email: (v: string) => {
+      if (!v) return "El email es obligatorio"
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "El email no es válido"
+      return true
+    },
+    password: (v: string) => {
+      if (!v) return "La contraseña es obligatoria"
+      if (v.length < 4) return "Mínimo 4 caracteres"
+      return true
+    },
+  },
+})
 
-const login = async () => {
+const { value: email,    errorMessage: emailError    } = useField<string>("email")
+const { value: password, errorMessage: passwordError } = useField<string>("password")
+
+// Submit
+const onSubmit = handleSubmit(async (values) => {
   errorMsg.value = ""
-  loading.value = true
+  loading.value  = true
   try {
-    await auth.login({ email: email.value, password: password.value })
+    await auth.login({ email: values.email, password: values.password })
     router.push("/admin")
   } catch {
-    errorMsg.value = "Credenciales incorrectas"
+    errorMsg.value = "Credenciales incorrectas. Inténtalo de nuevo."
+    resetForm({ values: { email: values.email, password: "" } })
   } finally {
     loading.value = false
   }
-}
+})
 </script>
 
 <template>
@@ -36,23 +50,38 @@ const login = async () => {
       <v-col cols="12" sm="8" md="5" lg="4">
 
         <v-card rounded="lg" elevation="4" class="pa-6">
-          <v-card-title class="text-h5 font-weight-bold text-center mb-4">
+
+          <v-card-title class="text-h5 font-weight-bold text-center mb-2">
             Iniciar sesión
           </v-card-title>
 
-          <v-alert v-if="errorMsg" type="error" variant="tonal" class="mb-4">
+          <v-card-subtitle class="text-center mb-4">
+            Accede a tu panel de administración
+          </v-card-subtitle>
+
+          <!-- Error -->
+          <v-alert
+            v-if="errorMsg"
+            type="error"
+            variant="tonal"
+            class="mb-4"
+            closable
+            @click:close="errorMsg = ''"
+          >
             {{ errorMsg }}
           </v-alert>
 
-          <v-form @submit.prevent="login">
+          <form @submit.prevent="onSubmit" novalidate>
+
             <v-text-field
               v-model="email"
               label="Email"
               type="email"
               prepend-inner-icon="mdi-email-outline"
               variant="outlined"
-              :rules="[rules.required, rules.email]"
-              class="mb-3"
+              :error-messages="emailError"
+              autocomplete="email"
+              class="mb-2"
             />
 
             <v-text-field
@@ -61,14 +90,22 @@ const login = async () => {
               type="password"
               prepend-inner-icon="mdi-lock-outline"
               variant="outlined"
-              :rules="[rules.required]"
+              :error-messages="passwordError"
+              autocomplete="current-password"
               class="mb-4"
             />
 
-            <v-btn type="submit" color="primary" size="large" block :loading="loading">
+            <v-btn
+              type="submit"
+              color="primary"
+              size="large"
+              block
+              :loading="loading"
+            >
               Entrar
             </v-btn>
-          </v-form>
+
+          </form>
 
           <v-card-text class="text-center text-body-2 mt-2">
             ¿No tienes cuenta?
@@ -76,8 +113,8 @@ const login = async () => {
               Regístrate
             </RouterLink>
           </v-card-text>
-        </v-card>
 
+        </v-card>
       </v-col>
     </v-row>
   </v-container>

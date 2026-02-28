@@ -1,26 +1,37 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { useForm, useField } from "vee-validate"
-import * as Yup from "yup"
 import { useRouter } from "vue-router"
 
 const router  = useRouter()
 const loading = ref(false)
 
-const schema = Yup.object({
-  email: Yup.string().email("Email no valido").required("Campo obligatorio"),
-  password: Yup.string().min(6, "Minimo 6 caracteres").required("Campo obligatorio"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Las contrasenas no coinciden")
-    .required("Campo obligatorio"),
+//Reglas VeeValidate
+const { handleSubmit } = useForm({
+  validationSchema: {
+    email: (v: string) => {
+      if (!v) return "El email es obligatorio"
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "El email no es válido"
+      return true
+    },
+    password: (v: string) => {
+      if (!v) return "La contraseña es obligatoria"
+      if (v.length < 6) return "Mínimo 6 caracteres"
+      return true
+    },
+    confirmPassword: (v: string) => {
+      if (!v) return "Confirma tu contraseña"
+      if (v !== password.value) return "Las contraseñas no coinciden"
+      return true
+    },
+  },
 })
-
-const { handleSubmit } = useForm({ validationSchema: schema })
 
 const { value: email,           errorMessage: emailError           } = useField<string>("email")
 const { value: password,        errorMessage: passwordError        } = useField<string>("password")
 const { value: confirmPassword, errorMessage: confirmPasswordError } = useField<string>("confirmPassword")
 
+//Submit
 const onSubmit = handleSubmit(async (values) => {
   loading.value = true
   try {
@@ -36,12 +47,19 @@ const onSubmit = handleSubmit(async (values) => {
   <v-container class="fill-height" fluid>
     <v-row justify="center" align="center">
       <v-col cols="12" sm="8" md="5" lg="4">
+
         <v-card rounded="lg" elevation="4" class="pa-6">
-          <v-card-title class="text-h5 font-weight-bold text-center mb-4">
+
+          <v-card-title class="text-h5 font-weight-bold text-center mb-2">
             Crear cuenta
           </v-card-title>
 
-          <form @submit.prevent="onSubmit">
+          <v-card-subtitle class="text-center mb-4">
+            Rellena los campos para registrarte
+          </v-card-subtitle>
+
+          <form @submit.prevent="onSubmit" novalidate>
+
             <v-text-field
               v-model="email"
               label="Email"
@@ -49,37 +67,51 @@ const onSubmit = handleSubmit(async (values) => {
               prepend-inner-icon="mdi-email-outline"
               variant="outlined"
               :error-messages="emailError"
+              autocomplete="email"
               class="mb-2"
             />
+
             <v-text-field
               v-model="password"
-              label="Contrasena"
+              label="Contraseña"
               type="password"
               prepend-inner-icon="mdi-lock-outline"
               variant="outlined"
               :error-messages="passwordError"
+              autocomplete="new-password"
               class="mb-2"
             />
+
             <v-text-field
               v-model="confirmPassword"
-              label="Confirmar contrasena"
+              label="Confirmar contraseña"
               type="password"
               prepend-inner-icon="mdi-lock-check-outline"
               variant="outlined"
               :error-messages="confirmPasswordError"
+              autocomplete="new-password"
               class="mb-4"
             />
-            <v-btn type="submit" color="primary" size="large" block :loading="loading">
+
+            <v-btn
+              type="submit"
+              color="primary"
+              size="large"
+              block
+              :loading="loading"
+            >
               Registrarse
             </v-btn>
+
           </form>
 
           <v-card-text class="text-center text-body-2 mt-2">
-            Ya tienes cuenta?
+            ¿Ya tienes cuenta?
             <RouterLink to="/login" class="text-primary font-weight-bold">
-              Inicia sesion
+              Inicia sesión
             </RouterLink>
           </v-card-text>
+
         </v-card>
       </v-col>
     </v-row>
