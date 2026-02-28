@@ -30,11 +30,11 @@ export const useAuthStore = defineStore("auth", {
       localStorage.setItem("token", token)
     },
 
-    async register({ email, password }: { email: string; password: string }) {
+    async register({ email, password, userName }: { email: string; password: string; userName: string }) {
       const res = await fetch("https://localhost:7278/Auth/Register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, userName }),
       })
 
       if (!res.ok) throw new Error("Error al registrar el usuario")
@@ -46,12 +46,10 @@ export const useAuthStore = defineStore("auth", {
       localStorage.removeItem("token")
     },
 
-    // Restaura el usuario desde el token guardado al recargar la página
     restoreSession() {
       const token = localStorage.getItem("token")
       if (token) {
         this.token = token
-        // Decodificamos el payload del JWT para sacar el email
         try {
           const parts = token.split(".")
           const payload = JSON.parse(atob(parts[1] ?? ""))

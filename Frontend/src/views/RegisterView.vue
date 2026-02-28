@@ -11,6 +11,11 @@ const errorMsg = ref("")
 
 const { handleSubmit } = useForm({
   validationSchema: {
+    userName: (v: string) => {
+      if (!v) return "El nombre de usuario es obligatorio"
+      if (v.trim().length < 3) return "Mínimo 3 caracteres"
+      return true
+    },
     email: (v: string) => {
       if (!v) return "El email es obligatorio"
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "El email no es válido"
@@ -29,6 +34,7 @@ const { handleSubmit } = useForm({
   },
 })
 
+const { value: userName,        errorMessage: userNameError        } = useField<string>("userName")
 const { value: email,           errorMessage: emailError           } = useField<string>("email")
 const { value: password,        errorMessage: passwordError        } = useField<string>("password")
 const { value: confirmPassword, errorMessage: confirmPasswordError } = useField<string>("confirmPassword")
@@ -37,7 +43,7 @@ const onSubmit = handleSubmit(async (values) => {
   errorMsg.value = ""
   loading.value  = true
   try {
-    await auth.register({ email: values.email, password: values.password })
+    await auth.register({ email: values.email, password: values.password, userName: values.userName })
     router.push("/login")
   } catch {
     errorMsg.value = "Error al registrar. El email puede estar ya en uso."
@@ -62,7 +68,6 @@ const onSubmit = handleSubmit(async (values) => {
             Rellena los campos para registrarte
           </v-card-subtitle>
 
-          <!-- Error -->
           <v-alert
             v-if="errorMsg"
             type="error"
@@ -75,6 +80,16 @@ const onSubmit = handleSubmit(async (values) => {
           </v-alert>
 
           <form @submit.prevent="onSubmit" novalidate>
+
+            <v-text-field
+              v-model="userName"
+              label="Nombre de usuario"
+              prepend-inner-icon="mdi-account-outline"
+              variant="outlined"
+              :error-messages="userNameError"
+              autocomplete="username"
+              class="mb-2"
+            />
 
             <v-text-field
               v-model="email"
