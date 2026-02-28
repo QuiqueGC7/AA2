@@ -1,11 +1,12 @@
-// src/stores/auth.store.ts
 import { defineStore } from "pinia"
 
-interface User { email: string }
+interface User {
+  email: string
+}
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    user: null as User | null,
+    user:  null as User | null,
     token: localStorage.getItem("token") as string | null,
   }),
 
@@ -20,18 +21,45 @@ export const useAuthStore = defineStore("auth", {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       })
+
       if (!res.ok) throw new Error("Credenciales incorrectas")
 
       const token = await res.text()
-      this.token = token
-      this.user  = { email }
+      this.token  = token
+      this.user   = { email }
       localStorage.setItem("token", token)
+    },
+
+    async register({ email, password }: { email: string; password: string }) {
+      const res = await fetch("https://localhost:7278/Auth/Register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+
+      if (!res.ok) throw new Error("Error al registrar el usuario")
     },
 
     logout() {
       this.user  = null
       this.token = null
       localStorage.removeItem("token")
+    },
+
+    // Restaura el usuario desde el token guardado al recargar la página
+    restoreSession() {
+      const token = localStorage.getItem("token")
+      if (token) {
+        this.token = token
+        // Decodificamos el payload del JWT para sacar el email
+        try {
+          const parts = token.split(".")
+          const payload = JSON.parse(atob(parts[1] ?? ""))
+          this.user = { email: payload.email ?? payload.sub ?? "" }
+        } catch {
+          // Si falla la decodificación, mantenemos el token pero sin datos de usuario
+        }
+      }
     },
   },
 })

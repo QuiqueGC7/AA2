@@ -48,6 +48,9 @@
 import { ref, onMounted } from "vue"
 import { fetchPlatos, deletePlato } from "../../services/PlatoPrincipal.service"
 import type { PlatoPrincipal } from "../../types/PlatoPrincipal"
+import { usePlatoPrincipalStore } from "../../stores/PlatoPrincipal.store"
+const store = usePlatoPrincipalStore()
+onMounted(() => store.fetchAll())
 
 const platos   = ref<PlatoPrincipal[]>([])
 const loading  = ref(false)

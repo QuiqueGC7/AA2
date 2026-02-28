@@ -7,10 +7,14 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useRoute } from "vue-router"
+import { useAuthStore } from "./stores/auth.store"
 
 import PublicLayout from "./layouts/PublicLayout.vue"
 import AdminLayout  from "./layouts/AdminLayout.vue"
 import AuthLayout   from "./layouts/AuthLayout.vue"   
+
+const authStore = useAuthStore()
+authStore.restoreSession()
 
 const route = useRoute()
 
