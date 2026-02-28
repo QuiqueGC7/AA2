@@ -1,7 +1,7 @@
 <script setup>
 import { Form, Field, ErrorMessage } from "vee-validate"
 import * as Yup from "yup"
-import { useAuthStore } from "../store/auth"
+import { useAuthStore } from "../stores/auth.store"
 
 const auth = useAuthStore()
 

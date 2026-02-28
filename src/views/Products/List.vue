@@ -16,11 +16,10 @@
   
   <script setup lang="ts">
   import { ref } from "vue"
-  import type { A } from "@/types/A"
-  
-  const items = ref<A[]>([
-    { id: 1, name: "Elemento A1" },
-    { id: 2, name: "Elemento A2" },
+  import type { Product } from "../../types/product"
+  const items = ref<Product[]>([
+    { id: 1, name: "Platano", price: 0.89, categoryId: 1, stock: 20, description: "Platanos de canarias" },
+    { id: 2, name: "Borrajas", price: 3.49, categoryId: 2, stock: 200, description: "Borrajas frescas" },
   ])
   
   const remove = (id: number) => {

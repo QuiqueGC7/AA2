@@ -1,10 +1,10 @@
   <script setup lang="ts">
   import { ref } from "vue"
-  import type { A } from "@/types/A"
+  import type { Category } from "../../types/category"
   
-  const items = ref<A[]>([
-    { id: 1, name: "Elemento A1" },
-    { id: 2, name: "Elemento A2" },
+  const items = ref<Category[]>([
+    { id: 1, name: "Frutas" },
+    { id: 2, name: "Verduras" },
   ])
   
   const remove = (id: number) => {
@@ -14,14 +14,14 @@
   
   <template>
     <section>
-      <h2>Listado de Entidad A</h2>
+      <h2>Listado de Categorías</h2>
   
-      <RouterLink to="/entity-a/new">Crear nuevo</RouterLink>
+      <RouterLink to="/admin/categories/new">Crear nuevo</RouterLink>
   
       <ul>
         <li v-for="item in items" :key="item.id">
           {{ item.name }}
-          <RouterLink :to="`/entity-a/${item.id}`">Editar</RouterLink>
+          <RouterLink :to="`/admin/categories/${item.id}`">Editar</RouterLink>
           <button @click="remove(item.id)">Eliminar</button>
         </li>
       </ul>

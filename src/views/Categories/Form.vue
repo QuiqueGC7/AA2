@@ -3,7 +3,8 @@
     import * as Yup from "yup"
     import { ref } from "vue"
     import { useRoute, useRouter } from "vue-router"
-    import type { A } from "@/types/A"
+    import type { Category } from "../../types/category"
+import { C } from "vue-router/dist/router-CWoNjPRp.mjs"
 
     const route = useRoute()
     const router = useRouter()
@@ -12,7 +13,7 @@
     name: Yup.string().required(),
     })
 
-    const form = ref<A>({
+    const form = ref<Category>({
     id: 0,
     name: "",
     })
@@ -24,14 +25,18 @@
     }
     }
 
-    const save = (values: A) => {
+    const save = (values: Category) => {
     console.log("Guardado:", values)
-    router.push("/entity-a")
+    router.push("/admin/categories")
     }
 </script>
   
 <template>
-    <Form :initial-values="form" :validation-schema="schema" @submit="save">
+    <Form <Category>
+      :initial-values="form"
+      :validation-schema="schema"
+      @submit="save"
+    >
         <div>
         <label>Nombre</label>
         <Field name="name" />
