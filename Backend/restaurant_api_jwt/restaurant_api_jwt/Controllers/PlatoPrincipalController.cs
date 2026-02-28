@@ -60,7 +60,6 @@ namespace RestauranteAPI.Controllers
         }
   
        [HttpDelete("{id}")]
-       [Authorize]
        public async Task<IActionResult> DeletePlato(int id)
        {
            var plato = await _platoPrincipalService.GetByIdAsync(id);

@@ -8,7 +8,6 @@ namespace RestauranteAPI.Controllers
 {
    [Route("api/[controller]")]
    [ApiController]
-   [Authorize]
    public class BebidaController : ControllerBase
    {
     private static List<Bebida> bebidas = new List<Bebida>();
@@ -72,7 +71,6 @@ namespace RestauranteAPI.Controllers
         ///Cambio necesario///
   
        [HttpDelete("{id}")]
-        [Authorize(Roles = Roles.Admin)]
        public async Task<IActionResult> DeleteBebida(int id)
        {
            var bebida = await _repository.GetByIdAsync(id);
