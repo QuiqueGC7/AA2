@@ -2,11 +2,13 @@
 import { ref } from "vue"
 import { useForm, useField } from "vee-validate"
 import { useRouter } from "vue-router"
+import { useAuthStore } from "../stores/auth.store"
 
-const router  = useRouter()
-const loading = ref(false)
+const router   = useRouter()
+const auth     = useAuthStore()
+const loading  = ref(false)
+const errorMsg = ref("")
 
-//Reglas VeeValidate
 const { handleSubmit } = useForm({
   validationSchema: {
     email: (v: string) => {
@@ -31,12 +33,14 @@ const { value: email,           errorMessage: emailError           } = useField<
 const { value: password,        errorMessage: passwordError        } = useField<string>("password")
 const { value: confirmPassword, errorMessage: confirmPasswordError } = useField<string>("confirmPassword")
 
-//Submit
 const onSubmit = handleSubmit(async (values) => {
-  loading.value = true
+  errorMsg.value = ""
+  loading.value  = true
   try {
-    console.log("Register:", values)
+    await auth.register({ email: values.email, password: values.password })
     router.push("/login")
+  } catch {
+    errorMsg.value = "Error al registrar. El email puede estar ya en uso."
   } finally {
     loading.value = false
   }
@@ -57,6 +61,18 @@ const onSubmit = handleSubmit(async (values) => {
           <v-card-subtitle class="text-center mb-4">
             Rellena los campos para registrarte
           </v-card-subtitle>
+
+          <!-- Error -->
+          <v-alert
+            v-if="errorMsg"
+            type="error"
+            variant="tonal"
+            class="mb-4"
+            closable
+            @click:close="errorMsg = ''"
+          >
+            {{ errorMsg }}
+          </v-alert>
 
           <form @submit.prevent="onSubmit" novalidate>
 

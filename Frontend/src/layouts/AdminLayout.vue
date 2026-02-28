@@ -6,8 +6,8 @@
     <v-navigation-drawer permanent color="grey-darken-4" width="230">
 
       <v-list-item
-        prepend-icon="mdi-view-dashboard"
-        title="Administración"
+        prepend-icon="mdi-silverware-fork-knife"
+        title="Restaurante"
         class="py-4"
         nav
       />
@@ -24,16 +24,23 @@
           active-color="primary"
         />
         <v-list-item
-          prepend-icon="mdi-package-variant"
-          title="Productos"
-          to="/admin/products"
+          prepend-icon="mdi-food"
+          title="Platos"
+          to="/admin/platos"
           rounded="lg"
           active-color="primary"
         />
         <v-list-item
-          prepend-icon="mdi-shape-outline"
-          title="Categorías"
-          to="/admin/categories"
+          prepend-icon="mdi-cup"
+          title="Bebidas"
+          to="/admin/bebidas"
+          rounded="lg"
+          active-color="primary"
+        />
+        <v-list-item
+          prepend-icon="mdi-cake"
+          title="Postres"
+          to="/admin/postres"
           rounded="lg"
           active-color="primary"
         />
@@ -69,7 +76,7 @@
 import Navbar         from "../components/common/Navbar.vue"
 import Notification   from "../components/ui/Notification.vue"
 import LoadingSpinner from "../components/ui/LoadingSpinner.vue"
-import { useUIStore } from "../stores/ui.store"
+import { useUIStore }   from "../stores/ui.store"
 import { useAuthStore } from "../stores/auth.store"
 
 const ui   = useUIStore()

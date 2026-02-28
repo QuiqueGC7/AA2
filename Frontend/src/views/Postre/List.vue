@@ -11,28 +11,33 @@
       </v-col>
     </v-row>
 
-    <v-alert v-if="error" type="error" class="mb-4">{{ error }}</v-alert>
+    <v-alert v-if="store.error" type="error" class="mb-4">{{ store.error }}</v-alert>
 
-    <v-data-table
-      :headers="headers"
-      :items="postres"
-      :loading="loading"
-      class="elevation-1"
-    >
-      <template #item.precio="{ item }">
-        {{ item.precio.toFixed(2) }} €
-      </template>
+    <v-row v-if="!store.loading">
+      <v-col
+        v-for="postre in store.postres"
+        :key="postre.id"
+        cols="12" sm="6" md="4" lg="3"
+      >
+        <PostreCard :postre="postre" @delete="confirmDelete" />
+      </v-col>
+      <v-col v-if="store.postres.length === 0" cols="12">
+        <v-alert type="info" variant="tonal">No hay postres registrados todavía.</v-alert>
+      </v-col>
+    </v-row>
 
-      <template #item.actions="{ item }">
-        <v-btn icon="mdi-pencil" size="small" variant="text" :to="`/admin/postres/${item.id}`" />
-        <v-btn icon="mdi-delete" size="small" variant="text" color="error" @click="confirmDelete(item)" />
-      </template>
-    </v-data-table>
+    <v-row v-else>
+      <v-col v-for="n in 4" :key="n" cols="12" sm="6" md="4" lg="3">
+        <v-skeleton-loader type="card" />
+      </v-col>
+    </v-row>
 
     <v-dialog v-model="dialog" max-width="400">
       <v-card>
         <v-card-title>Eliminar postre</v-card-title>
-        <v-card-text>¿Seguro que quieres eliminar <strong>{{ selected?.nombre }}</strong>?</v-card-text>
+        <v-card-text>
+          ¿Seguro que quieres eliminar <strong>{{ selected?.nombre }}</strong>?
+        </v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn @click="dialog = false">Cancelar</v-btn>
@@ -45,34 +50,16 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
-import { fetchPostres, deletePostre } from "../../services/Postre.service"
+import { usePostreStore } from "../../stores/Postre.store"
 import type { Postre } from "../../types/Postre"
+import PostreCard from "../../components/postres/PostreCard.vue"
 
-const postres  = ref<Postre[]>([])
-const loading  = ref(false)
-const error    = ref("")
+const store    = usePostreStore()
 const dialog   = ref(false)
 const deleting = ref(false)
 const selected = ref<Postre | null>(null)
 
-const headers = [
-  { title: "ID",       key: "id" },
-  { title: "Nombre",   key: "nombre" },
-  { title: "Precio",   key: "precio" },
-  { title: "Calorías", key: "calorias" },
-  { title: "Acciones", key: "actions", sortable: false },
-]
-
-async function load() {
-  loading.value = true
-  try {
-    postres.value = await fetchPostres()
-  } catch {
-    error.value = "Error al cargar los postres"
-  } finally {
-    loading.value = false
-  }
-}
+onMounted(() => store.fetchAll())
 
 function confirmDelete(item: Postre) {
   selected.value = item
@@ -83,15 +70,10 @@ async function handleDelete() {
   if (!selected.value) return
   deleting.value = true
   try {
-    await deletePostre(selected.value.id)
-    await load()
+    await store.remove(selected.value.id)
     dialog.value = false
-  } catch {
-    error.value = "Error al eliminar el postre"
   } finally {
     deleting.value = false
   }
 }
-
-onMounted(load)
 </script>

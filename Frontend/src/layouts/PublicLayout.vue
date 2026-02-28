@@ -9,7 +9,7 @@
     </v-main>
 
     <v-footer color="surface" border="t" class="text-center text-caption py-3">
-      © {{ new Date().getFullYear() }} MiTienda — Todos los derechos reservados
+      © {{ new Date().getFullYear() }} MiRestaurante
     </v-footer>
   </v-app>
 </template>
