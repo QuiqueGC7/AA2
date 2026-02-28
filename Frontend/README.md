@@ -44,3 +44,7 @@ npm run build
 npm install vue-router@4
 npm install pinia
 npm install vee-validate yup
+
+UserAdmin: 
+Email: agimenezg@svalero.com
+Password: 1234

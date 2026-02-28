@@ -5,7 +5,7 @@
     <v-app-bar-title>
       <RouterLink to="/" class="logo-link">
         <v-icon color="primary" class="mr-1">mdi-store</v-icon>
-        <span class="text-primary font-weight-bold">MiTienda</span>
+        <span class="text-primary font-weight-bold">MiRestaurante</span>
       </RouterLink>
     </v-app-bar-title>
 

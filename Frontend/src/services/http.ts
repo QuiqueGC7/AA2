@@ -1,6 +1,6 @@
 // src/services/http.ts
 
-export const API_URL = "https://localhost:7278/api"
+export const API_URL = "http://localhost:5167/api"
 
 function getHeaders(): Record<string, string> {
   const token = localStorage.getItem("token")

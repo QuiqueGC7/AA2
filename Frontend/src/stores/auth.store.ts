@@ -16,7 +16,7 @@ export const useAuthStore = defineStore("auth", {
 
   actions: {
     async login({ email, password }: { email: string; password: string }) {
-      const res = await fetch("https://localhost:7278/Auth/Login", {
+      const res = await fetch("http://localhost:5167/Auth/Login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -31,7 +31,7 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async register({ email, password, userName }: { email: string; password: string; userName: string }) {
-      const res = await fetch("https://localhost:7278/Auth/Register", {
+      const res = await fetch("http://localhost:5167/Auth/Register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, userName }),
