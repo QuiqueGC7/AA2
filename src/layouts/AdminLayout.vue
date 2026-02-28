@@ -1,77 +1,77 @@
 <template>
-  <div class="admin-layout">
+  <v-app>
     <Navbar />
 
-    <div class="admin-body">
-      <aside class="sidebar">
-        <h3>Administración</h3>
+    <!-- Sidebar -->
+    <v-navigation-drawer permanent color="grey-darken-4" width="230">
 
-        <RouterLink to="/admin" class="link">Dashboard</RouterLink>
-        <RouterLink to="/admin/products" class="link">Productos</RouterLink>
-        <RouterLink to="/admin/categories" class="link">Categorías</RouterLink>
-      </aside>
+      <v-list-item
+        prepend-icon="mdi-view-dashboard"
+        title="Administración"
+        class="py-4"
+        nav
+      />
 
-      <main class="content">
-        <Notification />
-        <LoadingSpinner v-if="ui.loading" />
+      <v-divider />
 
+      <v-list density="compact" nav class="mt-2">
+        <v-list-item
+          prepend-icon="mdi-view-dashboard-outline"
+          title="Dashboard"
+          to="/admin"
+          exact
+          rounded="lg"
+          active-color="primary"
+        />
+        <v-list-item
+          prepend-icon="mdi-package-variant"
+          title="Productos"
+          to="/admin/products"
+          rounded="lg"
+          active-color="primary"
+        />
+        <v-list-item
+          prepend-icon="mdi-shape-outline"
+          title="Categorías"
+          to="/admin/categories"
+          rounded="lg"
+          active-color="primary"
+        />
+      </v-list>
+
+      <!-- Usuario activo al pie -->
+      <template #append>
+        <v-divider />
+        <v-list density="compact" nav class="my-2">
+          <v-list-item
+            prepend-icon="mdi-account-circle-outline"
+            :title="auth.user?.email ?? ''"
+            subtitle="Administrador"
+          />
+        </v-list>
+      </template>
+
+    </v-navigation-drawer>
+
+    <!-- Contenido principal -->
+    <v-main>
+      <Notification />
+      <LoadingSpinner v-if="ui.loading" />
+      <v-container fluid class="pa-6">
         <slot />
-      </main>
-    </div>
-  </div>
+      </v-container>
+    </v-main>
+
+  </v-app>
 </template>
 
 <script setup lang="ts">
-import Navbar from "../components/common/Navbar.vue"
-import Notification from "../components/ui/Notification.vue"
+import Navbar         from "../components/common/Navbar.vue"
+import Notification   from "../components/ui/Notification.vue"
 import LoadingSpinner from "../components/ui/LoadingSpinner.vue"
 import { useUIStore } from "../stores/ui.store"
+import { useAuthStore } from "../stores/auth.store"
 
-const ui = useUIStore()
+const ui   = useUIStore()
+const auth = useAuthStore()
 </script>
-
-<style scoped>
-.admin-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.admin-body {
-  display: flex;
-  flex: 1;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 220px;
-  background: #1f1f1f;
-  color: white;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.sidebar h3 {
-  margin-bottom: 1rem;
-}
-
-.link {
-  color: white;
-  text-decoration: none;
-  padding: 0.4rem 0;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
-
-/* Content area */
-.content {
-  flex: 1;
-  padding: 2rem;
-  overflow-y: auto;
-  background: #f5f5f5;
-}
-</style>

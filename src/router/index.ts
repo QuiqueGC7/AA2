@@ -1,16 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
 
-
-// Vistas públicas
-import HomeView from "../views/HomeView.vue"
-import LoginView from "../views/LoginView.vue"
-import RegisterView from "../views/RegisterView.vue"
-
-// Vistas admin
+import HomeView      from "../views/HomeView.vue"
+import LoginView     from "../views/LoginView.vue"
+import RegisterView  from "../views/RegisterView.vue"
 import AdminDashboard from "../views/AdminDashboard.vue"
 
-// Store de autenticación
 import { useAuthStore } from "../stores/auth.store"
 
 const routes: RouteRecordRaw[] = [
@@ -20,15 +15,16 @@ const routes: RouteRecordRaw[] = [
     component: HomeView,
     meta: { layout: "public" }
   },
+
   {
     path: "/login",
     component: LoginView,
-    meta: { layout: "public" }
+    meta: { layout: "auth" }
   },
   {
     path: "/register",
     component: RegisterView,
-    meta: { layout: "public" }
+    meta: { layout: "auth" }
   },
 
   // PANEL ADMIN
@@ -41,34 +37,34 @@ const routes: RouteRecordRaw[] = [
   // CRUD PRODUCTOS
   {
     path: "/admin/products",
-    component: () => import("@/views/Products/List.vue"),
+    component: () => import("../views/Products/List.vue"),
     meta: { layout: "admin", requiresAuth: true }
   },
   {
     path: "/admin/products/new",
-    component: () => import("@/views/Products/Form.vue"),
+    component: () => import("../views/Products/Form.vue"),
     meta: { layout: "admin", requiresAuth: true }
   },
   {
     path: "/admin/products/:id",
-    component: () => import("@/views/Products/Form.vue"),
+    component: () => import("../views/Products/Form.vue"),
     meta: { layout: "admin", requiresAuth: true }
   },
 
   // CRUD CATEGORÍAS
   {
     path: "/admin/categories",
-    component: () => import("@/views/Categories/List.vue"),
+    component: () => import("../views/Categories/List.vue"),
     meta: { layout: "admin", requiresAuth: true }
   },
   {
     path: "/admin/categories/new",
-    component: () => import("@/views/Categories/Form.vue"),
+    component: () => import("../views/Categories/Form.vue"),
     meta: { layout: "admin", requiresAuth: true }
   },
   {
     path: "/admin/categories/:id",
-    component: () => import("@/views/Categories/Form.vue"),
+    component: () => import("../views/Categories/Form.vue"),
     meta: { layout: "admin", requiresAuth: true }
   }
 ]
@@ -78,10 +74,8 @@ const router = createRouter({
   routes
 })
 
-// PROTECCIÓN DE RUTAS PRIVADAS
 router.beforeEach((to, _, next) => {
   const auth = useAuthStore()
-
   if (to.meta.requiresAuth && !auth.isLogged) {
     next("/login")
   } else {

@@ -1,35 +1,24 @@
 <template>
-  <div class="public-layout">
+  <v-app>
     <Navbar />
 
-    <main class="content">
+    <v-main>
       <Notification />
       <LoadingSpinner v-if="ui.loading" />
-
       <slot />
-    </main>
-  </div>
+    </v-main>
+
+    <v-footer color="surface" border="t" class="text-center text-caption py-3">
+      © {{ new Date().getFullYear() }} MiTienda — Todos los derechos reservados
+    </v-footer>
+  </v-app>
 </template>
 
 <script setup lang="ts">
-import Navbar from "../components/common/Navbar.vue"
-import Notification from "../components/ui/Notification.vue"
-import LoadingSpinner from "../components/ui/LoadingSpinner.vue"
-import { useUIStore } from "../stores/ui.store"
+import Navbar          from "../components/common/Navbar.vue"
+import Notification    from "../components/ui/Notification.vue"
+import LoadingSpinner  from "../components/ui/LoadingSpinner.vue"
+import { useUIStore }  from "../stores/ui.store"
 
 const ui = useUIStore()
 </script>
-
-<style scoped>
-.public-layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.content {
-  flex: 1;
-  padding: 2rem;
-  background: #f8f8f8;
-}
-</style>

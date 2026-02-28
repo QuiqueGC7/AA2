@@ -1,31 +1,50 @@
 <template>
-  <nav class="navbar">
-    <div class="left">
-      <RouterLink to="/" class="logo">MiTienda</RouterLink>
+  <v-app-bar color="surface" elevation="2" border="b">
 
-      <RouterLink to="/" class="nav-link">Inicio</RouterLink>
-      <RouterLink to="/products" class="nav-link">Productos</RouterLink>
-    </div>
+    <!-- Logo -->
+    <v-app-bar-title>
+      <RouterLink to="/" class="logo-link">
+        <v-icon color="primary" class="mr-1">mdi-store</v-icon>
+        <span class="text-primary font-weight-bold">MiTienda</span>
+      </RouterLink>
+    </v-app-bar-title>
 
-    <div class="right">
-      <template v-if="!auth.isLogged">
-        <RouterLink to="/login" class="nav-link">Login</RouterLink>
-        <RouterLink to="/register" class="nav-link">Registro</RouterLink>
-      </template>
+    <!-- Links públicos -->
+    <v-btn variant="text" to="/" exact>Inicio</v-btn>
+    <v-btn variant="text" to="/products">Productos</v-btn>
 
-      <template v-else>
-        <RouterLink to="/admin" class="nav-link">Admin</RouterLink>
-        <button @click="logout" class="logout-btn">Salir</button>
-      </template>
-    </div>
-  </nav>
+    <v-spacer />
+
+    <!-- Sin sesión -->
+    <template v-if="!auth.isLogged">
+      <v-btn variant="text" to="/login">Login</v-btn>
+      <v-btn variant="flat" to="/register">Registro</v-btn>
+    </template>
+
+    <!-- Con sesión -->
+    <template v-else>
+      <v-btn variant="text" to="/admin" prepend-icon="mdi-view-dashboard">
+        Admin
+      </v-btn>
+      <v-btn
+        variant="outlined"
+        color="error"
+        prepend-icon="mdi-logout"
+        class="mr-2"
+        @click="logout"
+      >
+        Salir
+      </v-btn>
+    </template>
+
+  </v-app-bar>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from "../../stores/auth.store"
 import { useRouter } from "vue-router"
 
-const auth = useAuthStore()
+const auth   = useAuthStore()
 const router = useRouter()
 
 const logout = () => {
@@ -35,36 +54,9 @@ const logout = () => {
 </script>
 
 <style scoped>
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: #222;
-  color: white;
-}
-
-.logo {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-right: 1rem;
-}
-
-.nav-link {
-  margin-right: 1rem;
-  color: white;
+.logo-link {
   text-decoration: none;
-}
-
-.nav-link:hover {
-  text-decoration: underline;
-}
-
-.logout-btn {
-  background: transparent;
-  border: 1px solid white;
-  padding: 0.3rem 0.6rem;
-  color: white;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 </style>

@@ -8,15 +8,15 @@
 import { computed } from "vue"
 import { useRoute } from "vue-router"
 
-// Importa los layouts
 import PublicLayout from "@/layouts/PublicLayout.vue"
-import AdminLayout from "@/layouts/AdminLayout.vue"
+import AdminLayout  from "@/layouts/AdminLayout.vue"
+import AuthLayout   from "@/layouts/AuthLayout.vue"   
 
 const route = useRoute()
 
-// Decide qué layout usar según la ruta
 const layoutComponent = computed(() => {
-  return route.meta.layout === "admin" ? AdminLayout : PublicLayout
+  if (route.meta.layout === "admin")  return AdminLayout
+  if (route.meta.layout === "auth")   return AuthLayout 
+  return PublicLayout
 })
 </script>
-
