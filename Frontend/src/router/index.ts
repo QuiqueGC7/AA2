@@ -32,6 +32,11 @@ const routes: RouteRecordRaw[] = [
     component: AdminDashboard,
     meta: { layout: "admin", requiresAuth: true }
   },
+  {
+  path: "/products",
+  component: () => import("../views/ProductsView.vue"),
+  meta: { layout: "public" }
+},
 
   // CRUD PLATOS PRINCIPALES  ← carpeta real: views/PlatoPrincipal/
   { path: "/admin/platos",      component: () => import("../views/PlatoPrincipal/List.vue"), meta: { layout: "admin", requiresAuth: true } },
