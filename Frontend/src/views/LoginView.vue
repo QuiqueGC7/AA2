@@ -34,7 +34,7 @@ const onSubmit = handleSubmit(async (values) => {
   loading.value  = true
   try {
     await auth.login({ email: values.email, password: values.password })
-    router.push(auth.isAdmin ? "/admin" : "/admin/platos")
+    router.push(auth.isAdmin ? "/admin" : "/")
   } catch {
     errorMsg.value = "Credenciales incorrectas. Inténtalo de nuevo."
     resetForm({ values: { email: values.email, password: "" } })

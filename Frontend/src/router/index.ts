@@ -24,19 +24,19 @@ const routes: RouteRecordRaw[] = [
   },
 
   // CRUD Platos (admin + user pueden gestionar)
-  { path: "/admin/platos",      component: () => import("../views/PlatoPrincipal/List.vue"), meta: { layout: "admin", requiresAuth: true, requiresRole: "editor" } },
-  { path: "/admin/platos/new",  component: () => import("../views/PlatoPrincipal/Form.vue"), meta: { layout: "admin", requiresAuth: true, requiresRole: "editor" } },
-  { path: "/admin/platos/:id",  component: () => import("../views/PlatoPrincipal/Form.vue"), meta: { layout: "admin", requiresAuth: true, requiresRole: "editor" } },
+  { path: "/admin/platos",      component: () => import("../views/PlatoPrincipal/List.vue"), meta: { layout: "admin", requiresAuth: true, requiresRole: "admin" } },
+  { path: "/admin/platos/new",  component: () => import("../views/PlatoPrincipal/Form.vue"), meta: { layout: "admin", requiresAuth: true, requiresRole: "admin" } },
+  { path: "/admin/platos/:id",  component: () => import("../views/PlatoPrincipal/Form.vue"), meta: { layout: "admin", requiresAuth: true, requiresRole: "admin" } },
 
   // CRUD Bebidas
-  { path: "/admin/bebidas",     component: () => import("../views/Bebida/List.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "editor" } },
-  { path: "/admin/bebidas/new", component: () => import("../views/Bebida/Form.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "editor" } },
-  { path: "/admin/bebidas/:id", component: () => import("../views/Bebida/Form.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "editor" } },
+  { path: "/admin/bebidas",     component: () => import("../views/Bebida/List.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "admin" } },
+  { path: "/admin/bebidas/new", component: () => import("../views/Bebida/Form.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "admin" } },
+  { path: "/admin/bebidas/:id", component: () => import("../views/Bebida/Form.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "admin" } },
 
   // CRUD Postres
-  { path: "/admin/postres",     component: () => import("../views/Postre/List.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "editor" } },
-  { path: "/admin/postres/new", component: () => import("../views/Postre/Form.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "editor" } },
-  { path: "/admin/postres/:id", component: () => import("../views/Postre/Form.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "editor" } },
+  { path: "/admin/postres",     component: () => import("../views/Postre/List.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "admin" } },
+  { path: "/admin/postres/new", component: () => import("../views/Postre/Form.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "admin" } },
+  { path: "/admin/postres/:id", component: () => import("../views/Postre/Form.vue"),         meta: { layout: "admin", requiresAuth: true, requiresRole: "admin" } },
 
   // Catch-all → home
   { path: "/:pathMatch(.*)*", redirect: "/" },

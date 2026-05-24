@@ -60,9 +60,9 @@
         {{ auth.userRole.toUpperCase() }}
       </v-chip>
       <v-btn
-        v-if="auth.isLogged"
+        v-if="auth.isAdmin"
         variant="text"
-        to="/admin/platos"
+        to="/admin"
         prepend-icon="mdi-view-dashboard"
       >
         {{ t("nav.admin") }}
