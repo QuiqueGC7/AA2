@@ -24,12 +24,15 @@ export async function httpPost<T>(url: string, data: unknown): Promise<T> {
   return res.json()
 }
 
-export async function httpPut<T>(url: string, data: unknown): Promise<T> {
+export async function httpPut<T>(url: string, data: unknown): Promise<T | null> {
   const res = await fetch(url, {
     method: "PUT",
     headers: getHeaders(),
     body: JSON.stringify(data),
   })
+  if (res.status === 204 || res.headers.get("content-length") === "0") {
+    return null
+  }
   return res.json()
 }
 
