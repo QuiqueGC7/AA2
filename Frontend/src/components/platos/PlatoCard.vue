@@ -9,7 +9,7 @@
       <div class="text-body-2 text-medium-emphasis">{{ plato.ingredientes }}</div>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions v-if="auth.isAdmin">
       <v-spacer />
       <v-btn
         icon="mdi-pencil"
@@ -30,7 +30,10 @@
 
 <script setup lang="ts">
 import type { PlatoPrincipal } from "../../types/PlatoPrincipal"
+import { useAuthStore } from "../../stores/auth.store"
 
 defineProps<{ plato: PlatoPrincipal }>()
 defineEmits<{ delete: [plato: PlatoPrincipal] }>()
+
+const auth = useAuthStore()
 </script>

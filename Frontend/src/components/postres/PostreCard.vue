@@ -12,7 +12,7 @@
       </div>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions v-if="auth.isAdmin">
       <v-spacer />
       <v-btn
         icon="mdi-pencil"
@@ -33,7 +33,10 @@
 
 <script setup lang="ts">
 import type { Postre } from "../../types/Postre"
+import { useAuthStore } from "../../stores/auth.store"
 
 defineProps<{ postre: Postre }>()
 defineEmits<{ delete: [postre: Postre] }>()
+
+const auth = useAuthStore()
 </script>

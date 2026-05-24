@@ -15,7 +15,7 @@
       </v-chip>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions v-if="auth.isAdmin">
       <v-spacer />
       <v-btn
         icon="mdi-pencil"
@@ -36,7 +36,10 @@
 
 <script setup lang="ts">
 import type { Bebida } from "../../types/Bebida"
+import { useAuthStore } from "../../stores/auth.store"
 
 defineProps<{ bebida: Bebida }>()
 defineEmits<{ delete: [bebida: Bebida] }>()
+
+const auth = useAuthStore()
 </script>

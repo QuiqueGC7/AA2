@@ -15,7 +15,9 @@
       <v-divider />
 
       <v-list density="compact" nav class="mt-2">
+        <!-- Dashboard solo para admin -->
         <v-list-item
+          v-if="auth.isAdmin"
           prepend-icon="mdi-view-dashboard-outline"
           :title="t('admin.dashboard')"
           to="/admin"
@@ -23,6 +25,7 @@
           rounded="lg"
           active-color="primary"
         />
+        <!-- Estos los ven todos -->
         <v-list-item
           prepend-icon="mdi-food"
           :title="t('admin.platos')"

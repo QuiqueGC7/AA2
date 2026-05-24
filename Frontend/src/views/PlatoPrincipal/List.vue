@@ -5,15 +5,20 @@
         <h1 class="text-h4">Platos Principales</h1>
       </v-col>
       <v-col class="text-right">
-      <v-btn color="teal" variant="outlined" prepend-icon="mdi-plus" to="/admin/platos/new">
-        Nuevo plato
-      </v-btn>
+        <v-btn
+          v-if="auth.isAdmin"
+          color="teal"
+          variant="tonal"
+          prepend-icon="mdi-plus"
+          to="/admin/platos/new"
+        >
+          Nuevo plato
+        </v-btn>
       </v-col>
     </v-row>
 
     <v-alert v-if="store.error" type="error" class="mb-4">{{ store.error }}</v-alert>
 
-    <!-- Grid de cards — el v-for está aquí, el pintado en PlatoCard -->
     <v-row v-if="!store.loading">
       <v-col
         v-for="plato in store.platos"
@@ -33,7 +38,6 @@
       </v-col>
     </v-row>
 
-    <!-- Diálogo confirmación borrado -->
     <v-dialog v-model="dialog" max-width="400">
       <v-card>
         <v-card-title>Eliminar plato</v-card-title>
@@ -51,12 +55,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
-import { usePlatoPrincipalStore } from "../../stores/PlatoPrincipal.store"
-import type { PlatoPrincipal } from "../../types/PlatoPrincipal"
-import PlatoCard from "../../components/platos/PlatoCard.vue"
+import { ref, onMounted }            from "vue"
+import { usePlatoPrincipalStore }    from "../../stores/PlatoPrincipal.store"
+import { useAuthStore }              from "../../stores/auth.store"
+import type { PlatoPrincipal }       from "../../types/PlatoPrincipal"
+import PlatoCard                     from "../../components/platos/PlatoCard.vue"
 
 const store    = usePlatoPrincipalStore()
+const auth     = useAuthStore()
 const dialog   = ref(false)
 const deleting = ref(false)
 const selected = ref<PlatoPrincipal | null>(null)

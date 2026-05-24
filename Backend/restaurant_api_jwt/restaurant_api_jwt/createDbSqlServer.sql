@@ -6,6 +6,15 @@ WHERE name = 'RestauranteDB';
 
 USE RestauranteDB;
 
+CREATE TABLE Users (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UserName NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(200) NOT NULL UNIQUE,
+    Password NVARCHAR(200) NOT NULL,
+    Role NVARCHAR(50) NOT NULL DEFAULT 'user'
+);
+
+
 CREATE TABLE PlatoPrincipal (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(100) NOT NULL,
@@ -53,6 +62,12 @@ VALUES
 INSERT INTO Combo (PlatoPrincipal, Bebida, Postre, Descuento)
 VALUES 
 (1, 1, 2, 0.20);
+
+INSERT INTO Users (UserName, Email, Password, Role)
+VALUES ('agimenez', 'agimenezg@svalero.com', '1234', 'admin');
+
+INSERT INTO Users (UserName, Email, Password, Role)
+VALUES ('user', 'user@test.com', 'user1234', 'user');
 
 SELECT * FROM PlatoPrincipal;
 

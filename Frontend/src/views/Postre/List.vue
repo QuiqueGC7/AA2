@@ -5,7 +5,13 @@
         <h1 class="text-h4">Postres</h1>
       </v-col>
       <v-col class="text-right">
-        <v-btn color="teal" variant="outlined" prepend-icon="mdi-plus" to="/admin/postres/new">
+        <v-btn
+          v-if="auth.isAdmin"
+          color="teal"
+          variant="tonal"
+          prepend-icon="mdi-plus"
+          to="/admin/postres/new"
+        >
           Nuevo postre
         </v-btn>
       </v-col>
@@ -49,12 +55,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
-import { usePostreStore } from "../../stores/Postre.store"
-import type { Postre } from "../../types/Postre"
-import PostreCard from "../../components/postres/PostreCard.vue"
+import { ref, onMounted }  from "vue"
+import { usePostreStore }  from "../../stores/Postre.store"
+import { useAuthStore }    from "../../stores/auth.store"
+import type { Postre }     from "../../types/Postre"
+import PostreCard          from "../../components/postres/PostreCard.vue"
 
 const store    = usePostreStore()
+const auth     = useAuthStore()
 const dialog   = ref(false)
 const deleting = ref(false)
 const selected = ref<Postre | null>(null)

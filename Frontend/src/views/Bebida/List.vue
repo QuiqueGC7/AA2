@@ -5,7 +5,13 @@
         <h1 class="text-h4">Bebidas</h1>
       </v-col>
       <v-col class="text-right">
-        <v-btn color="teal" variant="outlined" prepend-icon="mdi-plus" to="/admin/bebidas/new">
+        <v-btn
+          v-if="auth.isAdmin"
+          color="teal"
+          variant="tonal"
+          prepend-icon="mdi-plus"
+          to="/admin/bebidas/new"
+        >
           Nueva bebida
         </v-btn>
       </v-col>
@@ -49,12 +55,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
-import { useBebidaStore } from "../../stores/Bebida.store"
-import type { Bebida } from "../../types/Bebida"
-import BebidaCard from "../../components/bebidas/BebidaCard.vue"
+import { ref, onMounted }  from "vue"
+import { useBebidaStore }  from "../../stores/Bebida.store"
+import { useAuthStore }    from "../../stores/auth.store"
+import type { Bebida }     from "../../types/Bebida"
+import BebidaCard          from "../../components/bebidas/BebidaCard.vue"
 
 const store    = useBebidaStore()
+const auth     = useAuthStore()
 const dialog   = ref(false)
 const deleting = ref(false)
 const selected = ref<Bebida | null>(null)
