@@ -5,7 +5,7 @@
         <h1 class="text-h4">Postres</h1>
       </v-col>
       <v-col class="text-right">
-        <v-btn color="primary" prepend-icon="mdi-plus" to="/admin/postres/new">
+        <v-btn color="teal" variant="outlined" prepend-icon="mdi-plus" to="/admin/postres/new">
           Nuevo postre
         </v-btn>
       </v-col>

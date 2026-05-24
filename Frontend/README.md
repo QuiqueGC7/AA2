@@ -48,3 +48,7 @@ npm install vee-validate yup
 UserAdmin: 
 Email: agimenezg@svalero.com
 Password: 1234
+
+Usuario normal:
+Email:    user@test.com
+Password: user1234

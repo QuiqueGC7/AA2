@@ -5,9 +5,9 @@
         <h1 class="text-h4">Platos Principales</h1>
       </v-col>
       <v-col class="text-right">
-        <v-btn color="primary" prepend-icon="mdi-plus" to="/admin/platos/new">
-          Nuevo plato
-        </v-btn>
+      <v-btn color="teal" variant="outlined" prepend-icon="mdi-plus" to="/admin/platos/new">
+        Nuevo plato
+      </v-btn>
       </v-col>
     </v-row>
 
