@@ -44,6 +44,7 @@ npm run build
 npm install vue-router@4
 npm install pinia
 npm install vee-validate yup
+npm install vue-i18n@9 chart.js
 
 UserAdmin: 
 Email: agimenezg@svalero.com
